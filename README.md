@@ -93,20 +93,6 @@ serenity-junit-saucedemo/
 
 ---
 
-### TC_003: Single Item Purchase
-**Priority:** MEDIUM | **Type:** Functional
-
-| Step | Action | Validation |
-|------|--------|------------|
-| 1 | Login | Inventory page displayed |
-| 2 | Add 1 product | Cart badge shows "1" |
-| 3 | Checkout with form data | Maria Kovacova, 54321 |
-| 4 | Complete order | Success message shown |
-
-**Result:** ✅ PASS
-
----
-
 ## 🔧 Custom Chrome Driver
 
 **Problem:** Chrome password popups interrupt test execution
