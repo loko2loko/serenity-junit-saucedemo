@@ -1,111 +1,164 @@
 # Serenity JUnit SauceDemo Test Automation
 
-🎯 **E2E test automation** project for [SauceDemo](https://www.saucedemo.com) using **Serenity BDD**, **JUnit 5**, and **Selenium WebDriver**.
+![Java](https://img.shields.io/badge/Java-17-orange?style=flat&logo=openjdk)
+![Maven](https://img.shields.io/badge/Maven-3.6+-blue?style=flat&logo=apache-maven)
+![Selenium](https://img.shields.io/badge/Selenium-4.25.0-green?style=flat&logo=selenium)
+![Serenity BDD](https://img.shields.io/badge/Serenity%20BDD-4.2.9-brightgreen?style=flat)
 
-## 🚀 Features
+E2E test automation for [SauceDemo](https://www.saucedemo.com) using **Serenity BDD**, **JUnit 5**, and **Selenium WebDriver**.
 
-- ✅ Custom Chrome driver with **password manager disabled** (no annoying popups!)
-- ✅ Complete E2E purchase flow tests
-- ✅ Clean test structure with proper logging (SLF4J + Logback)
-- ✅ Multiple test scenarios (login, single item, complete purchase)
-- ✅ Explicit waits and stable element interactions
+---
+
+## 🚀 Key Features
+
+- Custom Chrome driver with disabled password manager (no popups)
+- Complete E2E purchase flow automation
+- Explicit waits and stable element interactions
+- Professional logging (SLF4J + Logback)
+- Serenity BDD HTML reports
 
 ## 🛠️ Tech Stack
 
-- **Java 17**
-- **Serenity BDD 4.2.9** (includes Selenium 4.25.0)
-- **JUnit 5** (Jupiter 5.10.1)
-- **WebDriverManager** (automatic driver management)
-- **AssertJ** (fluent assertions)
-- **SLF4J + Logback** (logging)
+- **Java 17** | **Maven** | **Serenity BDD 4.2.9** | **Selenium 4.25.0** | **JUnit 5** | **AssertJ** | **Logback**
 
 ## 📋 Prerequisites
 
-- Java 17 or higher
+- Java 17+
 - Maven 3.6+
-- Chrome browser installed
+- Chrome browser
 
-## 🏃 Running Tests
+## 🏃 Quick Start
 
-### Run all tests:
 ```bash
+# Clone repository
+git clone https://github.com/yourusername/serenity-junit-saucedemo.git
+cd serenity-junit-saucedemo
+
+# Run tests
 mvn clean test
-```
 
-### Run specific test:
-```bash
-mvn test -Dtest=CustomDriverPurchaseTest#completePurchaseFlow
-```
-
-### Run with Serenity reports:
-```bash
+# Generate Serenity report
 mvn clean verify
-```
-
-After running, open the report:
-```bash
 open target/site/serenity/index.html
 ```
 
 ## 📁 Project Structure
+
 ```
 serenity-junit-saucedemo/
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── starter/
-│   │           └── drivers/
-│   │               └── CustomChromeDriver.java
-│   └── test/
-│       ├── java/
-│       │   └── starter/
-│       │       └── saucedemo/
-│       │           └── CustomDriverPurchaseTest.java
-│       └── resources/
-│           ├── logback.xml
-│           └── serenity.conf
-├── pom.xml
-├── .gitignore
-└── README.md
+├── src/main/java/starter/drivers/
+│   └── CustomChromeDriver.java          # Custom Chrome config
+├── src/test/java/starter/saucedemo/
+│   └── CustomDriverPurchaseTest.java    # Test cases
+├── src/test/resources/
+│   ├── logback.xml
+│   └── serenity.conf
+└── pom.xml
 ```
 
-## 🧪 Test Scenarios
+## 🧪 Test Cases
 
-### 1. Complete Purchase Flow
-- Login with valid credentials
-- Add multiple items to cart
-- Navigate through checkout process
-- Complete order
-- Verify success message
+### TC_001: Complete E2E Purchase Flow
+**Priority:** HIGH | **Type:** End-to-End
 
-### 2. Simple Login Test
-- Verify login without password popup interference
+| Step | Action | Validation |
+|------|--------|------------|
+| 1 | Login with valid credentials | URL contains `inventory.html` |
+| 2 | Add 2 products to cart | Cart badge shows "2" |
+| 3 | Navigate to cart | Cart contains 2 items |
+| 4 | Complete checkout form | Navigate to overview page |
+| 5 | Finish purchase | "Thank you for your order" displayed |
 
-### 3. Single Item Purchase
-- Simplified purchase flow with one item
+**Test Data:**
+- Username: `standard_user`
+- Password: `secret_sauce`
+- Products: Backpack, Bike Light
+- Checkout: Jan Novak, 12345
+
+**Result:** ✅ PASS
+
+---
+
+### TC_002: Simple Login Test
+**Priority:** HIGH | **Type:** Smoke Test
+
+| Step | Action | Validation |
+|------|--------|------------|
+| 1 | Navigate to login page | Page loads |
+| 2 | Enter credentials | Fields populated |
+| 3 | Click Login | Redirected to inventory |
+| 4 | Verify no popup | No password manager popup appears |
+
+**Result:** ✅ PASS
+
+---
+
+### TC_003: Single Item Purchase
+**Priority:** MEDIUM | **Type:** Functional
+
+| Step | Action | Validation |
+|------|--------|------------|
+| 1 | Login | Inventory page displayed |
+| 2 | Add 1 product | Cart badge shows "1" |
+| 3 | Checkout with form data | Maria Kovacova, 54321 |
+| 4 | Complete order | Success message shown |
+
+**Result:** ✅ PASS
+
+---
 
 ## 🔧 Custom Chrome Driver
 
-This project uses a **custom Chrome driver configuration** to completely disable Chrome's password manager popups:
+**Problem:** Chrome password popups interrupt test execution
+
+**Solution:**
 ```java
+Map<String, Object> prefs = new HashMap<>();
 prefs.put("credentials_enable_service", false);
 prefs.put("profile.password_manager_enabled", false);
-prefs.put("profile.password_manager_leak_detection", false);
+options.setExperimentalOption("prefs", prefs);
 ```
 
-This ensures tests run smoothly without manual popup handling! 🎉
+**Benefits:** No popups, stable tests, no manual handling
 
-## 📊 Logging
+---
 
-Configured with **Logback** for clean, structured logging:
-- Framework logs: `WARN` level
-- Test logs: `INFO` level
-- Debug mode available for troubleshooting
+## 📊 What I Learned
+
+**Technical Skills:**
+- Selenium WebDriver 4.x with custom browser configuration
+- JUnit 5 lifecycle and assertions with AssertJ
+- SLF4J/Logback logging configuration
+- Explicit waits and stable element handling
+
+**Best Practices:**
+- Browser popup handling
+- Test isolation and cleanup
+- Structured logging for debugging
+
+---
+
+## 🚀 Future Enhancements
+
+- [ ] CI/CD integration (GitHub Actions)
+- [ ] Cross-browser testing (Firefox, Edge)
+- [ ] Parallel test execution
+
+---
 
 ## 👤 Author
 
-Created by loko2loko
+**loko2loko**
+
+- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
+- GitHub: [@loko2loko](https://github.com/loko2loko)
+
+---
 
 ## 📄 License
 
-This project is for educational purposes.
+Educational and portfolio purposes.
+
+---
+
+**⭐ Star this project if you find it useful!**
