@@ -95,17 +95,23 @@ serenity-junit-saucedemo/
 
 ## 🔧 Custom Chrome Driver
 
-**Problem:** Chrome password popups interrupt test execution
+Disabled Chrome password manager to prevent popup interruptions:
 
-**Solution:**
 ```java
-Map<String, Object> prefs = new HashMap<>();
 prefs.put("credentials_enable_service", false);
 prefs.put("profile.password_manager_enabled", false);
-options.setExperimentalOption("prefs", prefs);
 ```
 
-**Benefits:** No popups, stable tests, no manual handling
+---
+
+## 🔄 CI/CD Pipeline
+
+Tests run automatically on:
+- Every push to `main` branch
+- Pull requests
+- Scheduled daily runs (optional)
+
+View workflow: [.github/workflows/maven.yml](.github/workflows/maven.yml)
 
 ---
 

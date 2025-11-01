@@ -14,6 +14,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <serenity.version>4.2.9</serenity.version> <!-- obsahuje Selenium 4.25.0 -->
         <junit.version>5.10.1</junit.version>
+        <tags></tags>
     </properties>
 
     <dependencies>
@@ -118,10 +119,14 @@
                 </configuration>
             </plugin>
 
+            <!-- Serenity reports (rovnaká verzia ako knižnice) -->
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>${serenity.version}</version>
+                <configuration>
+                    <tags>${tags}</tags>
+                </configuration>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
